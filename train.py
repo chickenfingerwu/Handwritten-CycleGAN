@@ -65,13 +65,9 @@ if opt.cuda:
 
 if opt.continue_train:
     netG_A2B.load_state_dict(torch.load(opt.checkpoints_path + 'netG_A2B/latest_netG_A2B.pth'))
-    netG_A2B.eval()
     netG_B2A.load_state_dict(torch.load(opt.checkpoints_path + 'netG_B2A/latest_netG_B2A.pth'))
-    netG_B2A.eval()
     netD_A.load_state_dict(torch.load(opt.checkpoints_path + 'netD_A/latest_netD_A.pth'))
-    netD_A.eval()
     netD_B.load_state_dict(torch.load(opt.checkpoints_path + 'netD_B/latest_netD_B.pth'))
-    netD_B.eval()
 else:
     netG_A2B.apply(weights_init_normal)
     netG_B2A.apply(weights_init_normal)
