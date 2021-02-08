@@ -84,8 +84,10 @@ input_A = Tensor(opt.batchSize, opt.input_nc, opt.size, opt.size)
 input_B = Tensor(opt.batchSize, opt.output_nc, opt.size, opt.size)
 # target_real = Variable(Tensor(opt.batchSize).fill_(1.0), requires_grad=False)
 # target_fake = Variable(Tensor(opt.batchSize).fill_(0.0), requires_grad=False)
-target_real = Tensor(opt.batchSize).fill_(1.0)
+target_real = Tensor(opt.batchSize, 1).fill_(1.0)
+target_real = target_real.reshape([6, 1])
 target_fake = Tensor(opt.batchSize).fill_(0.0)
+target_fake = target_fake.reshape([6, 1])
 
 
 # Buffers of previously generated samples
