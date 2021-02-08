@@ -3,7 +3,7 @@
 import argparse
 import itertools
 
-import torch.transforms as transforms
+import torchvision.transforms as transforms
 from torch.utils.data import DataLoader
 #from torch.autograd import Variable
 from PIL import Image
