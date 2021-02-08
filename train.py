@@ -3,7 +3,7 @@
 import argparse
 import itertools
 
-import torchvision.transforms as transforms
+import torch.transforms as transforms
 from torch.utils.data import DataLoader
 #from torch.autograd import Variable
 from PIL import Image
@@ -204,11 +204,14 @@ for epoch in range(opt.epoch, opt.n_epochs):
     lr_scheduler_D_B.step()
 
     # Save models checkpoints
-    if epoch % 20 == 19:
-
-        torch.save(netG_A2B.state_dict(), 'output/{}_netG_A2B.pth'.format(epoch))
-        torch.save(netG_B2A.state_dict(), 'output/{}_netG_B2A.pth'.format(epoch))
-        torch.save(netD_A.state_dict(), 'output/{}_netD_A.pth'.format(epoch))
-        torch.save(netD_B.state_dict(), 'output/{}_netD_B.pth'.format(epoch))
+    if epoch % 5 == 0:
+        torch.save(netG_A2B.state_dict(),
+                   '/content/gdrive/MyDrive/Handwritten-Kanji-checkpoints/netG_A2B/{}_netG_A2B.pth'.format(epoch))
+        torch.save(netG_B2A.state_dict(),
+                   '/content/gdrive/MyDrive/Handwritten-Kanji-checkpoints/netG_B2A/{}_netG_B2A.pth'.format(epoch))
+        torch.save(netD_A.state_dict(),
+                   '/content/gdrive/MyDrive/Handwritten-Kanji-checkpoints/netD_A/{}_netD_A.pth'.format(epoch))
+        torch.save(netD_B.state_dict(),
+                   '/content/gdrive/MyDrive/Handwritten-Kanji-checkpoints/netD_B/{}_netD_B.pth'.format(epoch))
 
 ###################################
