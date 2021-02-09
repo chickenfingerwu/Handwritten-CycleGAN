@@ -31,7 +31,7 @@ parser.add_argument('--input_nc', type=int, default=3, help='number of channels 
 parser.add_argument('--output_nc', type=int, default=3, help='number of channels of output data')
 parser.add_argument('--cuda', action='store_true', help='use GPU computation')
 parser.add_argument('--n_cpu', type=int, default=8, help='number of cpu threads to use during batch generation')
-parser.add_argument('--continue_train', type=bool, default='false', help='continue train')
+parser.add_argument('--continue_train', type=bool, default=False, help='continue train')
 parser.add_argument('--checkpoints_path', type=str, default='/content/gdrive/MyDrive/Handwritten-Kanji-checkpoints/',
                     help='path to checkpoints')
 
@@ -64,11 +64,13 @@ if opt.cuda:
     netD_B = nn.DataParallel(netD_B, device_ids=[0])
 
 if opt.continue_train:
+    print('continue training')
     netG_A2B.load_state_dict(torch.load(opt.checkpoints_path + 'netG_A2B/latest_netG_A2B.pth'))
     netG_B2A.load_state_dict(torch.load(opt.checkpoints_path + 'netG_B2A/latest_netG_B2A.pth'))
     netD_A.load_state_dict(torch.load(opt.checkpoints_path + 'netD_A/latest_netD_A.pth'))
     netD_B.load_state_dict(torch.load(opt.checkpoints_path + 'netD_B/latest_netD_B.pth'))
 else:
+    print('init training')
     netG_A2B.apply(weights_init_normal)
     netG_B2A.apply(weights_init_normal)
     netD_A.apply(weights_init_normal)
