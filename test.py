@@ -4,11 +4,13 @@ import argparse
 import sys
 import os
 
+import numpy as np
 import torchvision.transforms as transforms
 from torchvision.utils import save_image
 from torch.utils.data import DataLoader
 #from torch.autograd import Variable
 import torch
+import torchvision.transforms.functional as F
 
 from models import Generator
 from datasets import ImageDataset
@@ -59,7 +61,16 @@ input_A = Tensor(opt.batchSize, opt.input_nc, opt.size, opt.size)
 input_B = Tensor(opt.batchSize, opt.output_nc, opt.size, opt.size)
 
 # Dataset loader
-transforms_ = [ transforms.ToTensor(),
+class SquarePad:
+    def __call__(self, image):
+      w, h = image.size
+      max_wh = np.max([w, h])
+      hp = int((max_wh - w) / 2)
+      vp = int((max_wh - h) / 2)
+      padding = (hp, vp, hp, vp)
+      return F.pad(image, padding, 1, 'constant')
+
+transforms_ = [ SquarePad(), transforms.Resize(128), transforms.CenterCrop(128), transforms.ToTensor(),
                 transforms.Normalize((0.5,), (0.5,)) ]
 dataloader = DataLoader(ImageDataset(opt.dataroot, transforms_=transforms_, mode='test'), 
                         batch_size=opt.batchSize, shuffle=False, num_workers=opt.n_cpu)
