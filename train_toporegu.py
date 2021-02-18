@@ -135,7 +135,7 @@ dataloader = DataLoader(ImageDataset(opt.dataroot, transforms_=transforms_, unal
                         batch_size=opt.batchSize, shuffle=True, num_workers=opt.n_cpu)
 
 # Loss plot
-logger = Logger(opt.epoch, opt.n_epochs, len(dataloader))
+logger = Logger(opt.n_epochs, len(dataloader))
 ###################################
 
 ###### Training ######
